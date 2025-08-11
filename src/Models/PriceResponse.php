@@ -8,12 +8,12 @@ namespace Bitmicrosys\SharpsportsPhp\Models;
  */
 class PriceResponse
 {
-    public string $eventId;
+    public ?string $eventId;
     public array $markets;
 
     public function __construct(array $data)
     {
-        $this->eventId = $data['eventId'];
+        $this->eventId = $data['eventId'] ?? null;
         $this->markets = $data['markets'] ?? [];
     }
 
@@ -24,10 +24,12 @@ class PriceResponse
 
     public function toArray(): array
     {
-        return [
-            'eventId' => $this->eventId,
-            'markets' => $this->markets,
-        ];
+        $data = [];
+        if ($this->eventId !== null) {
+            $data['eventId'] = $this->eventId;
+        }
+        $data['markets'] = $this->markets;
+        return $data;
     }
 
     /**
