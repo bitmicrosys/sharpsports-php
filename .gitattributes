@@ -1,0 +1,6 @@
+# Exclude files from the production package
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/test_*.php         export-ignore
+/.vscode            export-ignore
+/examples           export-ignore
