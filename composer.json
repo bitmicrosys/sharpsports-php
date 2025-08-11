@@ -1,7 +1,7 @@
 {
     "name": "bitmicrosys/sharpsports-php",
     "description": "PHP Laravel SDK for SharpSports API",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": ["sharpsports", "sports betting", "api", "laravel", "sdk"],
     "license": "MIT",
     "type": "library",
