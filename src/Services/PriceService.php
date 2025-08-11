@@ -36,13 +36,22 @@ class PriceService extends BaseService
 
         $response = $this->client->get('prices', $query);
 
-        // The price API returns an array of event objects with nested pricing data
+        // The price API returns different structures based on the query:
+        // - When querying by eventId: returns a single event object
+        // - When querying by league: returns an array of event objects
         $priceResponses = [];
 
         if (is_array($response)) {
-            foreach ($response as $item) {
-                if (is_array($item)) {
-                    $priceResponses[] = PriceResponse::fromArray($item);
+            // Check if this is a single event object (has eventId or markets at root level)
+            if (isset($response['eventId']) || isset($response['markets'])) {
+                // Single event object
+                $priceResponses[] = PriceResponse::fromArray($response);
+            } else {
+                // Array of event objects
+                foreach ($response as $item) {
+                    if (is_array($item)) {
+                        $priceResponses[] = PriceResponse::fromArray($item);
+                    }
                 }
             }
         } elseif (is_string($response)) {
